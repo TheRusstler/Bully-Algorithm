@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
+import uk.ac.standrews.cs.cs4103.bully.fault.Crasher;
+
 public class Bully {
 
 	int timeout;

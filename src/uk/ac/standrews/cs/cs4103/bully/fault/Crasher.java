@@ -1,4 +1,6 @@
-package uk.ac.standrews.cs.cs4103.bully;
+package uk.ac.standrews.cs.cs4103.bully.fault;
+
+import uk.ac.standrews.cs.cs4103.bully.Bully;
 
 public class Crasher extends Thread {
 
