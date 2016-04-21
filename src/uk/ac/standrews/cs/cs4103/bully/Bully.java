@@ -19,7 +19,7 @@ public class Bully {
 	PrintWriter writer;
 
 	public static Node self;
-	
+
 	public static Logger logger;
 
 	HashMap<Integer, Node> nodes;
@@ -35,7 +35,8 @@ public class Bully {
 
 	void getArgs(String[] args) {
 		try {
-			Bully.self = new Node(Integer.parseInt(args[0]), Integer.parseInt(args[1]), NodeType.valueOf(args[2]), this.timeout);
+			Bully.self = new Node(Integer.parseInt(args[0]), Integer.parseInt(args[1]), NodeType.valueOf(args[2]),
+					this.timeout);
 			timeout = Integer.parseInt(args[3]);
 			nodes = getNodesConfiguration(args[4]);
 
@@ -61,7 +62,8 @@ public class Bully {
 		Node newNode;
 		while ((line = reader.readLine()) != null) {
 			data = line.split(",");
-			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.valueOf(data[2]), this.timeout);
+			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.valueOf(data[2]),
+					this.timeout);
 			nodes.put(newNode.getUuid(), newNode);
 			System.out.println(String.format("Loaded node: %d, port: %d", newNode.getUuid(), newNode.getPort()));
 		}
@@ -72,14 +74,32 @@ public class Bully {
 
 	void startElection() {
 		logger.logInternal("Triggering an election.");
-		
+
 		boolean ok = false;
 		Collection<Node> all = nodes.values();
-		
+
 		for (Node n : all) {
 			if (n.getUuid() > self.getUuid()) {
-				logger.log(String.format("Send Elect %d to %d.", self.getUuid(), n.getUuid()));
 				ok = ok || n.elect();
+			}
+		}
+
+		// No OK responses, become the new leader.
+		if (ok == false) {
+			logger.log("Timeout Triggered.");
+			sendResult();
+		}
+	}
+
+	void sendResult() {
+		logger.logInternal("No response send out result.");
+
+		Collection<Node> all = nodes.values();
+
+		for (Node n : all) {
+			// Send result to all except self
+			if (n.getUuid() != self.getUuid()) {
+				n.result();
 			}
 		}
 	}
@@ -108,24 +128,27 @@ public class Bully {
 		try {
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			writer = new PrintWriter(socket.getOutputStream(), true);
-			
+
 			int senderID = Integer.parseInt(reader.readLine());
 			Message message = Message.valueOf(reader.readLine());
-			
-			if(message == Message.ELECT) {
+
+			if (message == Message.ELECT) {
 				writer.println(Message.OK);
 				Bully.logger.log(String.format("Send OKAY to %d.", senderID));
+				startElection();
+			} else if (message == Message.RESULT) {
+				Bully.logger.log(String.format("Received Result from %d.", senderID));
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			socket.close();
 			reader = null;
 			writer = null;
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -40,6 +40,8 @@ public class Node {
 		connect();
 
 		boolean ok = false;
+		
+		Bully.logger.log(String.format("Send Elect %d to %d.", Bully.self.getUuid(), getUuid()));
 
 		writer.println(Bully.self.getUuid());
 		writer.println(Message.ELECT);
@@ -52,6 +54,17 @@ public class Node {
 		disconnect();
 
 		return ok;
+	}
+	
+	public void result() {
+		connect();
+
+		Bully.logger.log(String.format("Send Result %d to %d.", Bully.self.getUuid(), getUuid()));
+
+		writer.println(Bully.self.getUuid());
+		writer.println(Message.RESULT);
+
+		disconnect();
 	}
 
 	private Message getMessage() {
