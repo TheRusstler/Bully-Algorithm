@@ -11,15 +11,17 @@ public class Node {
 	private final int uuid;
 	private final int port;
 	private final NodeType type;
+	private final int timeout;
 
 	private Socket socket;
 	private PrintWriter writer;
 	private BufferedReader reader;
 
-	public Node(int uuid, int port, NodeType type) {
+	public Node(int uuid, int port, NodeType type, int timeout) {
 		this.port = port;
 		this.uuid = uuid;
 		this.type = type;
+		this.timeout = timeout;
 	}
 
 	public int getUuid() {
@@ -34,15 +36,18 @@ public class Node {
 		return type;
 	}
 
-	public boolean Elect() {
+	public boolean elect() {
 		connect();
 
 		boolean ok = false;
 
+		writer.println(Bully.self.getUuid());
 		writer.println(Message.ELECT);
 		
-		if (getMessage() == Message.OK)
+		if(getMessage() == Message.OK) {
 			ok = true;
+			Bully.logger.logInternal(String.format("Received OKAY from %d.", getUuid()));
+		}
 
 		disconnect();
 
@@ -65,6 +70,7 @@ public class Node {
 	private void connect() {
 		try {
 			socket = new Socket("localhost", this.getPort());
+			socket.setSoTimeout(timeout);
 			writer = new PrintWriter(socket.getOutputStream(), true);
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (Exception e) {

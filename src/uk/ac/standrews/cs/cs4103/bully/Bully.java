@@ -18,9 +18,10 @@ public class Bully {
 	BufferedReader reader;
 	PrintWriter writer;
 
-	Node self;
+	public static Node self;
+	
+	public static Logger logger;
 
-	// Mapping of ports to nodes
 	HashMap<Integer, Node> nodes;
 
 	public static void main(String[] args) {
@@ -28,12 +29,13 @@ public class Bully {
 
 		Bully bully = new Bully();
 		bully.getArgs(args);
+		logger = new Logger(Bully.self.getUuid());
 		bully.listen();
 	}
 
 	void getArgs(String[] args) {
 		try {
-			self = new Node(Integer.parseInt(args[0]), Integer.parseInt(args[1]), NodeType.valueOf(args[2]));
+			Bully.self = new Node(Integer.parseInt(args[0]), Integer.parseInt(args[1]), NodeType.valueOf(args[2]), this.timeout);
 			timeout = Integer.parseInt(args[3]);
 			nodes = getNodesConfiguration(args[4]);
 
@@ -59,7 +61,7 @@ public class Bully {
 		Node newNode;
 		while ((line = reader.readLine()) != null) {
 			data = line.split(",");
-			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.valueOf(data[2]));
+			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.valueOf(data[2]), this.timeout);
 			nodes.put(newNode.getUuid(), newNode);
 			System.out.println(String.format("Loaded node: %d, port: %d", newNode.getUuid(), newNode.getPort()));
 		}
@@ -69,10 +71,15 @@ public class Bully {
 	}
 
 	void startElection() {
+		logger.logInternal("Triggering an election.");
+		
+		boolean ok = false;
 		Collection<Node> all = nodes.values();
+		
 		for (Node n : all) {
 			if (n.getUuid() > self.getUuid()) {
-				n.Elect();
+				logger.log(String.format("Send Elect %d to %d.", self.getUuid(), n.getUuid()));
+				ok = ok || n.elect();
 			}
 		}
 	}
@@ -84,9 +91,12 @@ public class Bully {
 			startElection();
 		}
 
+		Socket client;
 		try (ServerSocket serverSocket = new ServerSocket(self.getPort())) {
 			while (listening) {
-				receive(serverSocket.accept());
+				client = serverSocket.accept();
+				client.setSoTimeout(timeout);
+				receive(client);
 			}
 		} catch (IOException e) {
 			System.err.println("Could not listen on port " + self.getPort());
@@ -96,16 +106,26 @@ public class Bully {
 
 	private void receive(Socket socket) {
 		try {
-
-			System.out.println("Connection opened");
-
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			writer = new PrintWriter(socket.getOutputStream(), true);
+			
+			int senderID = Integer.parseInt(reader.readLine());
+			Message message = Message.valueOf(reader.readLine());
+			
+			if(message == Message.ELECT) {
+				writer.println(Message.OK);
+				Bully.logger.log(String.format("Send OKAY to %d.", senderID));
+			}
 
-			String line = reader.readLine();
-			System.out.println("Received " + line);
-
-			System.out.println("Connection closed to node");
-
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			socket.close();
+			reader = null;
+			writer = null;
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
