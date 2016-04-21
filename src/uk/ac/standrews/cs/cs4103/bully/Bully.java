@@ -30,6 +30,11 @@ public class Bully {
 		Bully bully = new Bully();
 		bully.getArgs(args);
 		logger = new Logger(Bully.self.getUuid());
+		
+		if(self.getType() == NodeType.Crash) {
+			new Crasher().start();
+		}
+	
 		bully.listen();
 	}
 
