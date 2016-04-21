@@ -80,7 +80,7 @@ public class Bully {
 
 		for (Node n : all) {
 			if (n.getUuid() > self.getUuid()) {
-				ok = ok || n.elect();
+				ok = n.elect() || ok;
 			}
 		}
 
