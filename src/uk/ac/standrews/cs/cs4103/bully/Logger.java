@@ -30,7 +30,6 @@ public class Logger {
 
 	private void append(String message) {
 		try {
-//			long l = System.nanoTime();
 			String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date());
 			String line = String.format("[%s | %d ] %s", timestamp, this.uuid, message);
 			
@@ -39,8 +38,8 @@ public class Logger {
 			writer.newLine();
 			writer.flush();
 			
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 	}
 }

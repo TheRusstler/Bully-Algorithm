@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import uk.ac.standrews.cs.cs4103.bully.fault.Omission;
 import uk.ac.standrews.cs.cs4103.bully.fault.Timing;
 
 public class Node {
@@ -42,17 +43,17 @@ public class Node {
 		connect();
 
 		boolean ok = false;
-		
+
 		Bully.logger.log(String.format("Send Elect %d to %d.", Bully.self.getUuid(), getUuid()));
-		
-		if(Bully.self.getType() == NodeType.Timing) {
-			Timing.artificialDelay();
+
+		Timing.artificialDelay();
+
+		if (!Omission.omit()) {
+			writer.println(Bully.self.getUuid());
+			writer.println(Message.ELECT);
 		}
 
-		writer.println(Bully.self.getUuid());
-		writer.println(Message.ELECT);
-		
-		if(getMessage() == Message.OK) {
+		if (getMessage() == Message.OK) {
 			ok = true;
 			Bully.logger.logInternal(String.format("Received OKAY from %d.", getUuid()));
 		}
@@ -61,18 +62,18 @@ public class Node {
 
 		return ok;
 	}
-	
+
 	public void result() {
 		connect();
 
 		Bully.logger.log(String.format("Send Result %d to %d.", Bully.self.getUuid(), getUuid()));
-		
-		if(Bully.self.getType() == NodeType.Timing) {
-			Timing.artificialDelay();
-		}
 
-		writer.println(Bully.self.getUuid());
-		writer.println(Message.RESULT);
+		Timing.artificialDelay();
+
+		if (!Omission.omit()) {
+			writer.println(Bully.self.getUuid());
+			writer.println(Message.RESULT);
+		}
 
 		disconnect();
 	}
@@ -83,8 +84,8 @@ public class Node {
 			while ((line = reader.readLine()) != null) {
 				return Message.valueOf(line);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 
 		return null;
@@ -97,7 +98,7 @@ public class Node {
 			writer = new PrintWriter(socket.getOutputStream(), true);
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -108,7 +109,7 @@ public class Node {
 			writer = null;
 			reader = null;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 }

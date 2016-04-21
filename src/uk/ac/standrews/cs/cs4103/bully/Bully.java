@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import uk.ac.standrews.cs.cs4103.bully.fault.Crasher;
+import uk.ac.standrews.cs.cs4103.bully.fault.Omission;
 import uk.ac.standrews.cs.cs4103.bully.fault.Timing;
 
 public class Bully {
@@ -33,11 +34,11 @@ public class Bully {
 		Bully bully = new Bully();
 		bully.getArgs(args);
 		logger = new Logger(Bully.self.getUuid());
-		
-		if(self.getType() == NodeType.Crash) {
+
+		if (self.getType() == NodeType.Crash) {
 			new Crasher().start();
 		}
-	
+
 		bully.listen();
 	}
 
@@ -70,8 +71,7 @@ public class Bully {
 		Node newNode;
 		while ((line = reader.readLine()) != null) {
 			data = line.split(",");
-			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.Normal,
-					this.timeout);
+			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.Normal, this.timeout);
 			nodes.put(newNode.getUuid(), newNode);
 			System.out.println(String.format("Loaded node: %d, port: %d", newNode.getUuid(), newNode.getPort()));
 		}
@@ -141,19 +141,20 @@ public class Bully {
 			Message message = Message.valueOf(reader.readLine());
 
 			if (message == Message.ELECT) {
-				if(self.getType() == NodeType.Timing) {
-					Timing.artificialDelay();
-				}
-				
-				writer.println(Message.OK);
+
+				Timing.artificialDelay();
+
+				if (!Omission.omit())
+					writer.println(Message.OK);
+
 				Bully.logger.log(String.format("Send OKAY to %d.", senderID));
 				startElection();
 			} else if (message == Message.RESULT) {
 				Bully.logger.log(String.format("Received Result from %d.", senderID));
 			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 
 		try {
@@ -161,8 +162,8 @@ public class Bully {
 			reader = null;
 			writer = null;
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 	}
 }
