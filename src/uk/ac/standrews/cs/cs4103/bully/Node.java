@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import uk.ac.standrews.cs.cs4103.bully.fault.Timing;
+
 public class Node {
 
 	private final int uuid;
@@ -42,6 +44,10 @@ public class Node {
 		boolean ok = false;
 		
 		Bully.logger.log(String.format("Send Elect %d to %d.", Bully.self.getUuid(), getUuid()));
+		
+		if(Bully.self.getType() == NodeType.Timing) {
+			Timing.artificialDelay();
+		}
 
 		writer.println(Bully.self.getUuid());
 		writer.println(Message.ELECT);
@@ -60,6 +66,10 @@ public class Node {
 		connect();
 
 		Bully.logger.log(String.format("Send Result %d to %d.", Bully.self.getUuid(), getUuid()));
+		
+		if(Bully.self.getType() == NodeType.Timing) {
+			Timing.artificialDelay();
+		}
 
 		writer.println(Bully.self.getUuid());
 		writer.println(Message.RESULT);

@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import uk.ac.standrews.cs.cs4103.bully.fault.Crasher;
+import uk.ac.standrews.cs.cs4103.bully.fault.Timing;
 
 public class Bully {
 
@@ -69,7 +70,7 @@ public class Bully {
 		Node newNode;
 		while ((line = reader.readLine()) != null) {
 			data = line.split(",");
-			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.valueOf(data[2]),
+			newNode = new Node(Integer.parseInt(data[0]), Integer.parseInt(data[1]), NodeType.Normal,
 					this.timeout);
 			nodes.put(newNode.getUuid(), newNode);
 			System.out.println(String.format("Loaded node: %d, port: %d", newNode.getUuid(), newNode.getPort()));
@@ -140,6 +141,10 @@ public class Bully {
 			Message message = Message.valueOf(reader.readLine());
 
 			if (message == Message.ELECT) {
+				if(self.getType() == NodeType.Timing) {
+					Timing.artificialDelay();
+				}
+				
 				writer.println(Message.OK);
 				Bully.logger.log(String.format("Send OKAY to %d.", senderID));
 				startElection();

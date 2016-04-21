@@ -31,7 +31,7 @@ public class Logger {
 	private void append(String message) {
 		try {
 //			long l = System.nanoTime();
-			String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:").format(new Date());
+			String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date());
 			String line = String.format("[%s | %d ] %s", timestamp, this.uuid, message);
 			
 			writer.write(line);
