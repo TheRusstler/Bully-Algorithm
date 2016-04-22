@@ -1,0 +1,23 @@
+[2016-04-22 12:14:36:568 | 1 ] Algorithm: Received Result from 6.
+[2016-04-22 12:14:36:568 | 2 ] Algorithm: Received Result from 6.
+[2016-04-22 12:14:36:480 | 3 ] Internal: Triggering an election.
+[2016-04-22 12:14:36:504 | 3 ] Algorithm: Send Elect 3 to 4.
+[2016-04-22 12:14:36:509 | 3 ] Internal: Received OKAY from 4.
+[2016-04-22 12:14:36:510 | 3 ] Algorithm: Send Elect 3 to 5.
+[2016-04-22 12:14:36:521 | 3 ] Algorithm: Send Elect 3 to 6.
+[2016-04-22 12:14:36:526 | 3 ] Internal: Received OKAY from 6.
+[2016-04-22 12:14:36:554 | 3 ] Algorithm: Received Result from 6.
+[2016-04-22 12:14:36:520 | 4 ] Algorithm: Send OKAY to 3.
+[2016-04-22 12:14:36:521 | 4 ] Internal: Triggering an election.
+[2016-04-22 12:14:36:532 | 4 ] Algorithm: Send Elect 4 to 5.
+[2016-04-22 12:14:36:555 | 4 ] Algorithm: Received Result from 6.
+[2016-04-22 12:14:36:485 | 5 ] Internal: Process crashed
+[2016-04-22 12:14:36:538 | 6 ] Algorithm: Send OKAY to 3.
+[2016-04-22 12:14:36:539 | 6 ] Internal: Triggering an election.
+[2016-04-22 12:14:36:539 | 6 ] Algorithm: Timeout Triggered.
+[2016-04-22 12:14:36:540 | 6 ] Internal: No response send out result.
+[2016-04-22 12:14:36:551 | 6 ] Algorithm: Send Result 6 to 1.
+[2016-04-22 12:14:36:552 | 6 ] Algorithm: Send Result 6 to 2.
+[2016-04-22 12:14:36:553 | 6 ] Algorithm: Send Result 6 to 3.
+[2016-04-22 12:14:36:554 | 6 ] Algorithm: Send Result 6 to 4.
+[2016-04-22 12:14:36:555 | 6 ] Algorithm: Send Result 6 to 5.

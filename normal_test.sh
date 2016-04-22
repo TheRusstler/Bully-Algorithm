@@ -1,5 +1,5 @@
 # Normal test
-rm Node_*.txt
+./clean.sh
 java -jar bully.jar 6 5005 Normal 3000 config1.txt &
 java -jar bully.jar 5 5004 Normal 3000 config1.txt &
 java -jar bully.jar 4 5003 Normal 3000 config1.txt &

@@ -1,0 +1,74 @@
+[2016-04-22 12:04:40:984 | 1 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:986 | 1 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:985 | 2 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:987 | 2 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:803 | 3 ] Internal: Triggering an election.
+[2016-04-22 12:04:40:825 | 3 ] Algorithm: Send Elect 3 to 4.
+[2016-04-22 12:04:40:829 | 3 ] Internal: Received OKAY from 4.
+[2016-04-22 12:04:40:830 | 3 ] Algorithm: Send Elect 3 to 5.
+[2016-04-22 12:04:40:932 | 3 ] Algorithm: Send Elect 3 to 6.
+[2016-04-22 12:04:40:937 | 3 ] Internal: Received OKAY from 6.
+[2016-04-22 12:04:40:962 | 3 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:972 | 3 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:842 | 4 ] Algorithm: Send OKAY to 3.
+[2016-04-22 12:04:40:843 | 4 ] Internal: Triggering an election.
+[2016-04-22 12:04:40:853 | 4 ] Algorithm: Send Elect 4 to 5.
+[2016-04-22 12:04:40:956 | 4 ] Algorithm: Send Elect 4 to 6.
+[2016-04-22 12:04:40:964 | 4 ] Internal: Received OKAY from 6.
+[2016-04-22 12:04:40:967 | 4 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:975 | 4 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:849 | 5 ] Internal: Artificial delay: 279
+[2016-04-22 12:04:41:136 | 5 ] Algorithm: Send OKAY to 3.
+[2016-04-22 12:04:41:136 | 5 ] Internal: Triggering an election.
+[2016-04-22 12:04:41:147 | 5 ] Algorithm: Send Elect 5 to 6.
+[2016-04-22 12:04:41:147 | 5 ] Internal: Artificial delay: 1354
+[2016-04-22 12:04:42:503 | 5 ] Algorithm: Timeout Triggered.
+[2016-04-22 12:04:42:503 | 5 ] Internal: No response send out result.
+[2016-04-22 12:04:42:504 | 5 ] Algorithm: Send Result 5 to 1.
+[2016-04-22 12:04:42:505 | 5 ] Internal: Artificial delay: 1070
+[2016-04-22 12:04:43:579 | 5 ] Algorithm: Send Result 5 to 2.
+[2016-04-22 12:04:43:580 | 5 ] Internal: Artificial delay: 357
+[2016-04-22 12:04:43:944 | 5 ] Algorithm: Send Result 5 to 3.
+[2016-04-22 12:04:43:944 | 5 ] Internal: Artificial delay: 1181
+[2016-04-22 12:04:45:132 | 5 ] Algorithm: Send Result 5 to 4.
+[2016-04-22 12:04:45:132 | 5 ] Internal: Artificial delay: 1307
+[2016-04-22 12:04:46:446 | 5 ] Algorithm: Send Result 5 to 6.
+[2016-04-22 12:04:46:446 | 5 ] Internal: Artificial delay: 1966
+[2016-04-22 12:04:48:419 | 5 ] Internal: Artificial delay: 1595
+[2016-04-22 12:04:50:016 | 5 ] Algorithm: Send OKAY to 4.
+[2016-04-22 12:04:50:017 | 5 ] Internal: Triggering an election.
+[2016-04-22 12:04:50:018 | 5 ] Algorithm: Send Elect 5 to 6.
+[2016-04-22 12:04:50:018 | 5 ] Internal: Artificial delay: 1116
+[2016-04-22 12:04:51:137 | 5 ] Algorithm: Timeout Triggered.
+[2016-04-22 12:04:51:137 | 5 ] Internal: No response send out result.
+[2016-04-22 12:04:51:138 | 5 ] Algorithm: Send Result 5 to 1.
+[2016-04-22 12:04:51:138 | 5 ] Internal: Artificial delay: 1894
+[2016-04-22 12:04:53:039 | 5 ] Algorithm: Send Result 5 to 2.
+[2016-04-22 12:04:53:039 | 5 ] Internal: Artificial delay: 923
+[2016-04-22 12:04:53:969 | 5 ] Algorithm: Send Result 5 to 3.
+[2016-04-22 12:04:53:969 | 5 ] Internal: Artificial delay: 534
+[2016-04-22 12:04:54:510 | 5 ] Algorithm: Send Result 5 to 4.
+[2016-04-22 12:04:54:511 | 5 ] Internal: Artificial delay: 621
+[2016-04-22 12:04:55:134 | 5 ] Algorithm: Send Result 5 to 6.
+[2016-04-22 12:04:55:135 | 5 ] Internal: Artificial delay: 9
+[2016-04-22 12:04:55:147 | 5 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:55:148 | 5 ] Algorithm: Received Result from 6.
+[2016-04-22 12:04:40:949 | 6 ] Algorithm: Send OKAY to 3.
+[2016-04-22 12:04:40:950 | 6 ] Internal: Triggering an election.
+[2016-04-22 12:04:40:951 | 6 ] Algorithm: Timeout Triggered.
+[2016-04-22 12:04:40:951 | 6 ] Internal: No response send out result.
+[2016-04-22 12:04:40:959 | 6 ] Algorithm: Send Result 6 to 1.
+[2016-04-22 12:04:40:960 | 6 ] Algorithm: Send Result 6 to 2.
+[2016-04-22 12:04:40:961 | 6 ] Algorithm: Send Result 6 to 3.
+[2016-04-22 12:04:40:962 | 6 ] Algorithm: Send Result 6 to 4.
+[2016-04-22 12:04:40:963 | 6 ] Algorithm: Send Result 6 to 5.
+[2016-04-22 12:04:40:964 | 6 ] Algorithm: Send OKAY to 4.
+[2016-04-22 12:04:40:964 | 6 ] Internal: Triggering an election.
+[2016-04-22 12:04:40:964 | 6 ] Algorithm: Timeout Triggered.
+[2016-04-22 12:04:40:965 | 6 ] Internal: No response send out result.
+[2016-04-22 12:04:40:968 | 6 ] Algorithm: Send Result 6 to 1.
+[2016-04-22 12:04:40:969 | 6 ] Algorithm: Send Result 6 to 2.
+[2016-04-22 12:04:40:971 | 6 ] Algorithm: Send Result 6 to 3.
+[2016-04-22 12:04:40:972 | 6 ] Algorithm: Send Result 6 to 4.
+[2016-04-22 12:04:40:973 | 6 ] Algorithm: Send Result 6 to 5.
+[2016-04-22 12:04:55:147 | 6 ] Algorithm: Received Result from 5.
