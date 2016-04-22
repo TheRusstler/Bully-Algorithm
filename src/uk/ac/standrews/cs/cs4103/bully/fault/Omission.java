@@ -3,7 +3,7 @@ package uk.ac.standrews.cs.cs4103.bully.fault;
 import uk.ac.standrews.cs.cs4103.bully.Bully;
 import uk.ac.standrews.cs.cs4103.bully.NodeType;
 
-public class Omission extends Thread {
+public class Omission {
 	
 	static final double threashold = 0.2;
 

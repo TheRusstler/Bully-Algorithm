@@ -1,10 +1,9 @@
 
 *.class
 
-Node_1.txt
-
-Node_2.txt
+Node_*.txt
 
 config1.txt
 
-Node_3.txt
+./*_results.txt
+
